@@ -1,0 +1,618 @@
+        /* ===== GLOBAL STYLES ===== */
+        /* NOOB: Smooth scrolling and default font */
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+        }
+
+        /* ===== CAROUSEL STYLES ===== */
+        /* NOOB: Images inside carousel */
+        .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* NOOB COMMENT: Mobile carousel smaller */
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 300px;
+                object-fit: cover;
+            }
+        }
+
+        /* NOOB: Text box on carousel */
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* NOOB COMMENT: Mobile carousel text smaller */
+        @media (max-width: 768px) {
+            .carousel-caption h2 {
+                font-size: 1.5rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ========== ALL BUTTON STYLES ========== */
+        /* NOOB COMMENT: Styling for ALL buttons on the page */
+
+        /* ===== PRIMARY BUTTON (Dark/Green - Submit Button) ===== */
+        /* NOOB: Dark button that turns lighter on hover */
+        .btn-green {
+            background-color: #212529;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* NOOB COMMENT: Hover effect for enabled button */
+        .btn-green:hover:not(:disabled) {
+            background-color: #145a1a;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* NOOB COMMENT: Active state (when clicked) */
+        .btn-green:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* NOOB COMMENT: DISABLED STATE - Gray button that can't be clicked */
+        .btn-green:disabled {
+            background-color: #cccccc !important;
+            color: #666666 !important;
+            border: 1px solid #999999 !important;
+            cursor: not-allowed !important;
+            opacity: 0.6 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* NOOB COMMENT: No hover effect when disabled */
+        .btn-green:disabled:hover {
+            background-color: #cccccc !important;
+            color: #666666 !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* NOOB COMMENT: Focus state (keyboard navigation) */
+        .btn-green:focus {
+            outline: 2px solid #206e4e;
+            outline-offset: 2px;
+        }
+
+        /* ===== SECONDARY BUTTON (Light Gray - Reset Button) ===== */
+        /* NOOB: Light gray button for secondary actions */
+        .btn-reset {
+            background-color: #e9ecef;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* NOOB COMMENT: Hover effect - slightly darker */
+        .btn-reset:hover {
+            background-color: #dee2e6;
+            color: #212529;
+            border-color: #adb5bd;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* NOOB COMMENT: Active state (when clicked) */
+        .btn-reset:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* NOOB COMMENT: Focus state */
+        .btn-reset:focus {
+            outline: 2px solid #206e4e;
+            outline-offset: 2px;
+        }
+
+        /* ===== LIGHT BUTTON (White - CTA Button) ===== */
+        /* NOOB: Light button with dark text */
+        .btn-light {
+            background-color: #ffffff;
+            color: #212529;
+            border: 2px solid #206e4e;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* NOOB COMMENT: Hover effect */
+        .btn-light:hover {
+            background-color: #206e4e;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32, 110, 78, 0.3);
+        }
+
+        /* NOOB COMMENT: Active state */
+        .btn-light:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(32, 110, 78, 0.2);
+        }
+
+        /* NOOB COMMENT: Focus state */
+        .btn-light:focus {
+            outline: 2px solid #145a1a;
+            outline-offset: 2px;
+        }
+
+        /* ===== BUTTON SIZES ===== */
+        /* NOOB: Different button sizes */
+
+        /* Normal size (default) */
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* Large button */
+        .btn-lg {
+            padding: 15px 32px;
+            font-size: 1.1rem;
+        }
+
+        /* Small button */
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== BUTTON WITH ICONS ===== */
+        /* NOOB: Better spacing when button has icon */
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn i:last-child {
+            margin-right: 0;
+        }
+
+        /* ===== MOBILE BUTTON STYLES ===== */
+        /* NOOB COMMENT: Make buttons bigger and better on phones */
+        @media (max-width: 768px) {
+
+            .btn-green,
+            .btn-reset,
+            .btn-light {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+
+            .btn-lg {
+                padding: 12px 20px;
+                font-size: 1rem;
+                width: 100%;
+            }
+
+            .btn-sm {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== BUTTON DISABLED STATE ===== */
+        /* NOOB: Style for button when disabled */
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ===== BUTTON TRANSITIONS ===== */
+        /* NOOB: Smooth animation effects */
+        .btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* NOOB COMMENT: Ripple effect on click (scale animation) */
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== ACCESSIBILITY ===== */
+        /* NOOB: Make buttons accessible for keyboard users */
+        .btn:focus-visible {
+            outline: 3px solid #206e4e;
+            outline-offset: 2px;
+        }
+
+        /* NOOB COMMENT: High contrast mode support */
+        @media (prefers-contrast: more) {
+            .btn-green {
+                border: 2px solid #212529;
+            }
+
+            .btn-reset {
+                border: 2px solid #495057;
+            }
+
+            .btn-light {
+                border: 3px solid #206e4e;
+            }
+        }
+
+        /* NOOB COMMENT: Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .btn {
+                transition: none;
+            }
+
+            .btn:hover {
+                transform: none !important;
+            }
+
+            .btn:active {
+                transform: none !important;
+            }
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        /* NOOB: Light gray background for contact section */
+        .contact-section {
+            background: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        /* NOOB COMMENT: Mobile contact section padding */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 20px 10px;
+            }
+        }
+
+        /* NOOB: White box for contact form */
+        .contact-box {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            padding: 30px;
+        }
+
+        /* NOOB COMMENT: Mobile contact box smaller padding */
+        @media (max-width: 768px) {
+            .contact-box {
+                padding: 20px;
+                border-radius: 8px;
+            }
+        }
+
+        /* NOOB: Shadow grows on hover */
+        .contact-box:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ===== RADIO BUTTONS STYLING ===== */
+        /* NOOB: Color for checked radio buttons */
+        input[type="radio"]:checked {
+            accent-color: #212529 !important;
+        }
+
+        /* NOOB: Radio buttons side by side */
+        .form-check {
+            display: inline-block;
+            margin-right: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* NOOB COMMENT: Mobile radio buttons stack */
+        @media (max-width: 768px) {
+            .form-check {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+        }
+
+        /* ===== SERVICE CARDS ===== */
+        /* NOOB: Service cards design */
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #206e4e;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card h5 {
+            color: #206e4e;
+            font-weight: 600;
+        }
+
+        /* NOOB COMMENT: Mobile service card smaller padding */
+        @media (max-width: 768px) {
+            .service-card {
+                padding: 15px;
+            }
+
+            .service-card h5 {
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== HIGHLIGHT BOXES ===== */
+        /* NOOB: Highlight section boxes */
+        .highlight-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-box h5 {
+            color: #206e4e;
+            font-weight: 600;
+        }
+
+        /* NOOB COMMENT: Mobile highlight box smaller */
+        @media (max-width: 768px) {
+            .highlight-box {
+                padding: 15px;
+            }
+
+            .highlight-box h5 {
+                font-size: 0.95rem;
+            }
+
+            .highlight-box p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== FOOTER ===== */
+        /* NOOB: Footer style */
+        footer {
+            background-color: #212529;
+            padding: 20px;
+        }
+
+        /* NOOB COMMENT: Mobile footer smaller padding */
+        @media (max-width: 768px) {
+            footer {
+                padding: 15px;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        /* NOOB: Active nav link */
+        .navbar-light .navbar-nav .nav-link.active {
+            color: #206e4e !important;
+            font-weight: 600;
+        }
+
+        /* ===== SECTION HEADINGS ===== */
+        /* NOOB: Section heading underline */
+        .section-underline {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #206e4e, #145a1a);
+            margin: 10px auto 30px;
+        }
+
+        /* NOOB COMMENT: Mobile section heading */
+        @media (max-width: 768px) {
+            .section-underline {
+                width: 50px;
+            }
+
+            h1.display-4 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ===== HOW IT WORKS SECTION ===== */
+        /* NOOB: How it works section styling */
+        .how-it-works-container {
+            margin: 40px 0;
+        }
+
+        /* NOOB COMMENT: Timeline/steps styling for "How it Works" */
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-icon {
+            min-width: 60px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #206e4e, #145a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            box-shadow: 0 4px 15px rgba(32, 110, 78, 0.3);
+        }
+
+        .step-content h6 {
+            color: #206e4e;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* NOOB COMMENT: Mobile step item smaller */
+        @media (max-width: 768px) {
+            .step-item {
+                margin-bottom: 20px;
+            }
+
+            .step-icon {
+                min-width: 50px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                margin-right: 15px;
+            }
+
+            .step-content h6 {
+                font-size: 0.95rem;
+            }
+
+            .step-content p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== CTA SECTION ===== */
+        /* NOOB: CTA section mobile responsive */
+        .cta-section {
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .cta-section {
+                padding: 30px 15px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        /* NOOB: About section mobile responsive */
+        @media (max-width: 768px) {
+            #about .row {
+                flex-direction: column-reverse;
+            }
+
+            #about img {
+                margin-top: 20px;
+            }
+        }
+
+        /* ===== FORM STYLES ===== */
+        /* NOOB: Form labels mobile responsive */
+        @media (max-width: 768px) {
+            .form-label {
+                font-size: 0.9rem;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+
+            .invalid-feedback {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ===== DATE INPUT STYLING ===== */
+        /* NOOB COMMENT: Custom styling for date input calendar */
+
+        /* Style for the date input field itself */
+        input[type="date"] {
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* NOOB COMMENT: Styling when date input is focused (clicked) */
+        input[type="date"]:focus {
+            border-color: #206e4e !important;
+            box-shadow: 0 0 0 0.2rem rgba(32, 110, 78, 0.25);
+            outline: none;
+        }
+
+        /* NOOB COMMENT: Styling for the calendar icon inside date input */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 4px;
+            opacity: 0.6;
+            filter: invert(0.7);
+        }
+
+        /* NOOB COMMENT: Change color when hovering over calendar icon */
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        /* NOOB COMMENT: Styling for Firefox date input */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            cursor: pointer;
+            border-radius: 4px;
+            opacity: 0.6;
+        }
+
+        input[type="date"]::-moz-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        /* NOOB COMMENT: Mobile date input styling */
+        @media (max-width: 768px) {
+            input[type="date"] {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+        }
+  
