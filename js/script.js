@@ -35,6 +35,23 @@ $(document).ready(function () {
     $(dateInput).attr('min', todayFormatted); // Don't allow past dates
     console.log('📅 Calendar set to: ' + todayFormatted);
 
+    // ===== INITIALIZE FLATPICKR DATE PICKER (Beautiful Calendar) =====
+    // : Replace default browser calendar with beautiful Flatpickr calendar
+    flatpickr(dateInput, {
+        enableTime: false,
+        dateFormat: 'Y-m-d',
+        minDate: 'today',
+        defaultDate: todayFormatted,
+        theme: 'light',
+        static: false,
+        inline: false,
+        monthSelectorType: 'dropdown',
+        shorthandCurrentMonth: false,
+        locale: {
+            firstDayOfWeek: 0
+        }
+    });
+
     // ===== RESET BUTTON HANDLER =====
     // : When user clicks "Clear Form" button, empty all fields but keep date to today
     const resetBtn = $('#resetBtn');
@@ -267,10 +284,9 @@ $(document).ready(function () {
     checkFormValidation(false);
     console.log(' Form checker is working!');
 
-    // : If user picks past date, show error
+    // : If user picks past date, show error (disabled by Flatpickr, but keeping as fallback)
     $(dateInput).on('change', function () {
         if (this.value < todayFormatted) {
-            alert(' Cannot pick past dates! Only today or future dates allowed.');
             this.value = todayFormatted; // Reset to today
         }
         checkFormValidation(false); // Re-check form without showing errors
@@ -391,6 +407,22 @@ $(document).ready(function () {
         // Set default date to today for modal form
         demoDateModal.val(todayFormatted);
         demoDateModal.attr('min', todayFormatted);
+        
+        // ===== INITIALIZE FLATPICKR FOR MODAL DATE PICKER =====
+        flatpickr(demoDateModal[0], {
+            enableTime: false,
+            dateFormat: 'Y-m-d',
+            minDate: 'today',
+            defaultDate: todayFormatted,
+            theme: 'light',
+            static: false,
+            inline: false,
+            monthSelectorType: 'dropdown',
+            shorthandCurrentMonth: false,
+            locale: {
+                firstDayOfWeek: 0
+            }
+        });
         
         // Character counter for modal message field
         $(modalForm).find('textarea[name="message"]').on('input', function () {
