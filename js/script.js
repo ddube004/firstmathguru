@@ -11,29 +11,6 @@ $(document).ready(function () {
     // : Get the form (the white box where user types)
     const form = $('#contactForm');
 
-    // ===== RESET BUTTON HANDLER =====
-    // : When user clicks "Clear Form" button, empty all fields
-    const resetBtn = $('#resetBtn');
-
-    if (resetBtn.length) {
-        resetBtn.on('click', function () {
-            console.log('🔄 Form is being cleared...');
-
-            // : Reset all form fields to empty
-            form[0].reset();
-
-            // : Set date back to today
-            dateInput.value = todayFormatted;
-
-            // : Check form again (button should be disabled) - without showing errors
-            checkFormValidation(false);
-
-            console.log('✅ Form cleared! All fields empty.');
-        });
-    }
-
-    console.log('✅ Reset button is ready!');
-
     // ===== GET ALL INPUT FIELDS =====
     // : Find all empty boxes where user types (name, email, etc.)
     const nameInput = form.find('input[name="name"]')[0];
@@ -45,6 +22,45 @@ $(document).ready(function () {
     const dateInput = form.find('input[name="demo_date"]')[0];
     const timeSelect = form.find('select[name="time_slot"]')[0];
     const messageInput = form.find('textarea[name="message"]')[0];
+
+    // ===== SET DEFAULT DATE TO TODAY (Initialize early) =====
+    // : Show today's date in the calendar by default
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayFormatted = year + '-' + month + '-' + day;
+
+    dateInput.value = todayFormatted; // Set calendar to show today
+    $(dateInput).attr('min', todayFormatted); // Don't allow past dates
+    console.log('📅 Calendar set to: ' + todayFormatted);
+
+    // ===== RESET BUTTON HANDLER =====
+    // : When user clicks "Clear Form" button, empty all fields but keep date to today
+    const resetBtn = $('#resetBtn');
+
+    if (resetBtn.length) {
+        resetBtn.on('click', function (e) {
+            e.preventDefault(); // IMPORTANT: Stop the default form reset behavior
+            console.log('🔄 Form is being cleared...');
+
+            // : Reset all form fields to empty
+            form[0].reset();
+
+            // : IMPORTANT: Set date back to today AFTER reset
+            setTimeout(function() {
+                dateInput.value = todayFormatted;
+                console.log('📅 Date set to: ' + todayFormatted);
+            }, 50);
+
+            // : Check form again (button should be disabled) - without showing errors
+            checkFormValidation(false);
+
+            console.log('✅ Form cleared! Date set to today.');
+        });
+    }
+
+    console.log('✅ Reset button is ready!');
 
     // ===== CHECK IF FIELD HAS TEXT =====
     // : Simple function - returns TRUE if field has something, FALSE if empty
@@ -60,9 +76,9 @@ $(document).ready(function () {
     }
 
     // ===== CHECK IF PHONE IS 10 DIGITS =====
-    // : Check if phone number is exactly 10 numbers
+    // : Check if phone number is exactly 10 numbers and contains only digits
     function isPhoneValid(phone) {
-        return /^[0-9]{10}$/.test(phone);
+        return /^[0-9]{10}$/.test(phone) && phone.length === 10;
     }
 
     // ===== CHECK IF RADIO IS SELECTED =====
@@ -105,10 +121,13 @@ $(document).ready(function () {
             }
         }
 
-        // CHECK 1: Is name filled?
+        // CHECK 1: Is name filled and not more than 50 characters?
         if (!isFieldFilled(nameInput)) {
             allFieldsOk = false;
             showError(nameInput, true, 'Please enter your name');
+        } else if (nameInput.value.length > 50) {
+            allFieldsOk = false;
+            showError(nameInput, true, 'Name should not exceed 50 characters');
         } else {
             showError(nameInput, false, '');
         }
@@ -163,10 +182,13 @@ $(document).ready(function () {
             showError(timeSelect, false, '');
         }
 
-        // CHECK 9: Is message filled?
+        // CHECK 9: Is message filled and not more than 300 characters?
         if (!isFieldFilled(messageInput)) {
             allFieldsOk = false;
             showError(messageInput, true, 'Please enter your message');
+        } else if (messageInput.value.length > 300) {
+            allFieldsOk = false;
+            showError(messageInput, true, 'Message should not exceed 300 characters');
         } else {
             showError(messageInput, false, '');
         }
@@ -194,7 +216,17 @@ $(document).ready(function () {
     });
 
     $(mobileInput).on('input', function () {
+        // : Remove any non-digit characters in real-time
+        this.value = this.value.replace(/[^0-9]/g, '');
         checkFormValidation(false);
+    });
+
+    // : Prevent pasting non-digits into mobile field
+    $(mobileInput).on('paste', function (e) {
+        setTimeout(() => {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            checkFormValidation(false);
+        }, 10);
     });
 
     $(emailInput).on('input', function () {
@@ -214,6 +246,9 @@ $(document).ready(function () {
     });
 
     $(messageInput).on('input', function () {
+        // Update character counter for message field
+        const charCount = this.value.length;
+        $('#charCount').text(charCount);
         checkFormValidation(false);
     });
 
@@ -231,18 +266,6 @@ $(document).ready(function () {
     // Don't show errors yet - only on submit
     checkFormValidation(false);
     console.log('✅ Form checker is working!');
-
-    // ===== SET DEFAULT DATE TO TODAY =====
-    // : Show today's date in the calendar by default
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const todayFormatted = year + '-' + month + '-' + day;
-
-    dateInput.value = todayFormatted; // Set calendar to show today
-    $(dateInput).attr('min', todayFormatted); // Don't allow past dates
-    console.log('📅 Calendar set to: ' + todayFormatted);
 
     // : If user picks past date, show error
     $(dateInput).on('change', function () {
