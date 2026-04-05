@@ -2,7 +2,7 @@
 // : Using jQuery's document.ready - this waits until all HTML, CSS, and images load before running code
 // $(document).ready() means: "Hey browser, wait for everything to load, then do what's inside the brackets"
 $(document).ready(function () {
-    console.log('✅ Page ready! Now we can use all elements.');
+    console.log(' Page ready! Now we can use all elements.');
 
     // ===== GET THE SUBMIT BUTTON =====
     // : Find the button on page that says "Submit & Book Demo"
@@ -56,11 +56,11 @@ $(document).ready(function () {
             // : Check form again (button should be disabled) - without showing errors
             checkFormValidation(false);
 
-            console.log('✅ Form cleared! Date set to today.');
+            console.log(' Form cleared! Date set to today.');
         });
     }
 
-    console.log('✅ Reset button is ready!');
+    console.log(' Reset button is ready!');
 
     // ===== CHECK IF FIELD HAS TEXT =====
     // : Simple function - returns TRUE if field has something, FALSE if empty
@@ -200,12 +200,12 @@ $(document).ready(function () {
             submitBtn.prop('disabled', false); // Button is now clickable
             submitBtn.css('opacity', '1'); // Button is bright
             submitBtn.css('cursor', 'pointer'); // Show hand cursor
-            console.log('✅ ALL FIELDS OK! BUTTON ENABLED!');
+            console.log(' ALL FIELDS OK! BUTTON ENABLED!');
         } else {
             submitBtn.prop('disabled', true); // Button is not clickable
             submitBtn.css('opacity', '0.6'); // Button is faded
             submitBtn.css('cursor', 'not-allowed'); // Show blocked cursor
-            console.log('❌ Some fields missing! BUTTON DISABLED!');
+            console.log(' Some fields missing! BUTTON DISABLED!');
         }
     }
 
@@ -265,12 +265,12 @@ $(document).ready(function () {
     // : When page opens, button should be OFF (gray) because fields are empty
     // Don't show errors yet - only on submit
     checkFormValidation(false);
-    console.log('✅ Form checker is working!');
+    console.log(' Form checker is working!');
 
     // : If user picks past date, show error
     $(dateInput).on('change', function () {
         if (this.value < todayFormatted) {
-            alert('❌ Cannot pick past dates! Only today or future dates allowed.');
+            alert(' Cannot pick past dates! Only today or future dates allowed.');
             this.value = todayFormatted; // Reset to today
         }
         checkFormValidation(false); // Re-check form without showing errors
@@ -290,7 +290,7 @@ $(document).ready(function () {
             }
         }
     });
-    console.log('✅ Smooth scroll working!');
+    console.log(' Smooth scroll working!');
 
     // ===== CLOSE MOBILE MENU WHEN CLICKING LINK =====
     // : On phone, when user clicks a link, hide the menu
@@ -300,7 +300,7 @@ $(document).ready(function () {
             mobileMenu.removeClass('show');
         }
     });
-    console.log('✅ Mobile menu close working!');
+    console.log(' Mobile menu close working!');
 
     // ===== FORM SUBMIT HANDLER =====
     // : Handle form submission with validation
@@ -321,7 +321,7 @@ $(document).ready(function () {
 
         // If form is not valid, stop submission
         if (!isValid) {
-            console.log('❌ Form has errors, please fix them');
+            console.log(' Form has errors, please fix them');
             return;
         }
 
@@ -343,7 +343,7 @@ $(document).ready(function () {
             data: formObject, // Send form data
             success: function (response) {
                 // : Form submitted successfully
-                console.log('✅ Form submitted successfully!', response);
+                console.log(' Form submitted successfully!', response);
 
                 // Show Bootstrap success alert
                 const successAlert = `
@@ -361,11 +361,11 @@ $(document).ready(function () {
                     $('#alertBox').fadeOut(500, function () {
                         $(this).html('').hide();
                     });
-                }, 3000);
+                }, 5000);
             },
             error: function (error) {
                 // : Show error message if submission fails
-                console.log('❌ Error submitting form:', error);
+                console.log(' Error submitting form:', error);
 
                 // Show Bootstrap danger alert
                 const errorAlert = `
@@ -380,4 +380,99 @@ $(document).ready(function () {
     });
 
     console.log('🎉🎉🎉 ALL SCRIPTS LOADED AND WORKING! 🎉🎉🎉');
+
+    // ===== MODAL FORM HANDLING =====
+    // : Set up the same validation logic for the modal contact form
+    const modalForm = $('#contactFormModal');
+    const submitBtnModal = $('#submitBtnModal');
+    const demoDateModal = $('#demoDateModal');
+    
+    if (modalForm.length) {
+        // Set default date to today for modal form
+        demoDateModal.val(todayFormatted);
+        demoDateModal.attr('min', todayFormatted);
+        
+        // Character counter for modal message field
+        $(modalForm).find('textarea[name="message"]').on('input', function () {
+            const charCount = this.value.length;
+            $('#charCountModal').text(charCount);
+        });
+        
+        // Enable submit button when form is valid
+        $(modalForm).find('input, select, textarea').on('change input', function () {
+            const modalNameInput = modalForm.find('input[name="name"]').val().trim();
+            const modalMobileInput = modalForm.find('input[name="mobile"]').val().trim();
+            const modalEmailInput = modalForm.find('input[name="email"]').val().trim();
+            const modalDateInput = modalForm.find('input[name="demo_date"]').val();
+            const modalTimeInput = modalForm.find('select[name="time_slot"]').val();
+            const modalMessageInput = modalForm.find('textarea[name="message"]').val().trim();
+            const modalMobileValid = /^\d{10}$/.test(modalMobileInput);
+            const modalEmailValid = /^[^@]+@[^@]+\.[^@]+$/.test(modalEmailInput);
+            
+            if (modalNameInput && 
+                modalMobileValid && 
+                modalEmailValid && 
+                modalDateInput && 
+                modalTimeInput && 
+                modalMessageInput) {
+                submitBtnModal.prop('disabled', false);
+            } else {
+                submitBtnModal.prop('disabled', true);
+            }
+        });
+        
+        // Modal form submit handler
+        modalForm.on('submit', function (e) {
+            e.preventDefault();
+            
+            // Add Bootstrap validation classes
+            if (!this.checkValidity() === false) {
+                e.stopPropagation();
+            }
+            
+            // Show loading state
+            submitBtnModal.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Submitting...');
+            
+            // Send form via AJAX
+            $.ajax({
+                url: modalForm.attr('action'),
+                type: 'POST',
+                data: modalForm.serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    // Show success alert
+                    const successAlert = `
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle"></i> <strong>Success!</strong> Your request has been received. We will contact you shortly!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;
+                    $('#alertBoxModal').html(successAlert).fadeIn(300);
+                    
+                    // Reset form
+                    modalForm[0].reset();
+                    demoDateModal.val(todayFormatted);
+                    $('#charCountModal').text('0');
+                    submitBtnModal.prop('disabled', true).html('<i class="fas fa-paper-plane"></i> Submit & Schedule');
+                    
+                    // Close modal after 2 seconds
+                    setTimeout(function () {
+                        const modalInstance = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+                        modalInstance.hide();
+                        $('#alertBoxModal').fadeOut(300);
+                    }, 2000);
+                },
+                error: function (error) {
+                    const errorAlert = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle"></i> <strong>Error!</strong> Please try again.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;
+                    $('#alertBoxModal').html(errorAlert).fadeIn(300);
+                    submitBtnModal.prop('disabled', false).html('<i class="fas fa-paper-plane"></i> Submit & Schedule');
+                }
+            });
+        });
+    }
 });
