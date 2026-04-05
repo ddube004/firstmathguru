@@ -314,6 +314,57 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
+        /* ===== FORM VALIDATION STYLES ===== */
+        /* NOOB: Input field with error (red border) */
+        .form-control.is-invalid,
+        .form-select.is-invalid {
+            border-color: #dc3545;
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath fill='%23dc3545' d='M8 4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3A.5.5 0 0 0 8 4z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        /* NOOB: Input field that is valid (green border) */
+        .form-control.is-valid,
+        .form-select.is-valid {
+            border-color: #198754;
+        }
+
+        /* NOOB: Show error messages in RED text */
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        /* NOOB: Bootstrap alert style for error messages */
+        .invalid-feedback.alert {
+            display: none !important;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            color: #721c24;
+            padding: 0.75rem 1rem !important;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* NOOB: Show alert when field has is-invalid class */
+        .is-invalid ~ .invalid-feedback.alert {
+            display: block !important;
+        }
+
+        /* NOOB: Show error when field has is-invalid class */
+        .is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
         /* ===== RADIO BUTTONS STYLING ===== */
         /* NOOB: Color for checked radio buttons */
         input[type="radio"]:checked {
@@ -515,6 +566,76 @@
             .step-content p {
                 font-size: 0.85rem;
             }
+        }
+
+        /* ===== WHATSAPP BUTTON STYLES ===== */
+        /* NOOB: Floating WhatsApp button at bottom right */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        /* NOOB: Hover effect for floating button */
+        .whatsapp-float:hover {
+            background-color: #20ba58;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* NOOB: Mobile responsive floating button */
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 25px;
+            }
+        }
+
+        /* NOOB: WhatsApp contact section in footer */
+        .whatsapp-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid #25d366;
+            margin: 5px 5px;
+        }
+
+        /* NOOB: Hover effect for WhatsApp link */
+        .whatsapp-contact:hover {
+            background: rgba(37, 211, 102, 0.3);
+            color: #25d366;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* NOOB: WhatsApp icon styles */
+        .whatsapp-contact i {
+            font-size: 1.2rem;
         }
 
         /* ===== CTA SECTION ===== */
